@@ -1,6 +1,6 @@
-import { Books } from './containers/Books.container';
 import React from 'react';
-import { root, StoreProvider } from './Store';
+import { Books } from 'containers';
+import { root, StoreProvider } from 'Store';
 
 export const App = () => {
   return (
