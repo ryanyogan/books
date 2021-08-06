@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { Button, Text, View } from 'react-native';
+import { Button, Text, TextInput, View } from 'react-native';
 import { useStore } from '../Store';
 
 export const Books = observer(() => {
   const root = useStore();
+  const [title, setTitle] = useState('');
+
+  const fetchBooks = useCallback(() => {
+    root.ui.fetchBooks();
+  }, [root.ui]);
+
+  useEffect(() => {
+    fetchBooks();
+  }, [fetchBooks]);
 
   return (
     <View>
@@ -13,7 +22,9 @@ export const Books = observer(() => {
           <Text>{book.title}</Text>
         </View>
       ))}
-      <Button title="Add Button" onPress={() => root.ui.addBook('Test')} />
+
+      <TextInput value={title} onChangeText={setTitle} />
+      <Button title="Add Button" onPress={() => root.ui.addBook(title)} />
     </View>
   );
 });

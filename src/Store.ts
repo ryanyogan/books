@@ -1,14 +1,16 @@
 import { createContext, useContext } from 'react';
-import { createUIStore } from './stores/UI.store';
+import { createApiStore, createUIStore } from 'stores';
 
 export interface IRootStore {
   ui: ReturnType<typeof createUIStore>;
+  api: ReturnType<typeof createApiStore>;
 }
 
 const createRootStore = (): IRootStore => {
   const store: any = {};
 
   store.ui = createUIStore(store);
+  store.api = createApiStore(store);
 
   return store;
 };

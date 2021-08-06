@@ -1,32 +1,38 @@
-import { makeAutoObservable } from 'mobx';
-import { IRootStore } from '../Store';
+import { makeAutoObservable, runInAction } from 'mobx';
+import { IRootStore, root } from '../Store';
+
+interface IBook {
+  title: string;
+  createAt: string;
+}
 
 export const createUIStore = (_root: IRootStore) => {
   const store = makeAutoObservable({
-    books: [
-      {
-        title: 'Lord of the rings',
-        createdAt: '2021-02-02-T12:00:00Z',
-      },
-      {
-        title: 'Dune',
-        createdAt: '2021-02-02-T12:00:00Z',
-      },
-      {
-        title: 'True Lies',
-        createdAt: '2021-02-02-T12:00:00Z',
-      },
-    ],
+    books: [] as IBook[],
 
-    get uppercaseBooks(): { title: string; createdAt: string }[] {
+    get uppercaseBooks(): IBook[] {
       return store.books.map((book) => ({
         ...book,
         title: book.title.toUpperCase(),
       }));
     },
 
-    addBook(title: string) {
-      store.books.push({ title, createdAt: new Date().toISOString() });
+    async addBook(title: string) {
+      const books = await root.api.addBook(title);
+
+      if (books) {
+        runInAction(() => {
+          store.books = books;
+        });
+      }
+    },
+
+    async fetchBooks() {
+      const books = await root.api.fetchBooks();
+
+      runInAction(() => {
+        store.books = books;
+      });
     },
   });
 

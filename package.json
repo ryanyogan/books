@@ -13,6 +13,7 @@
     "nuke": "watchman watch-del-all && rm -rf $TMPDIR/react-* && rm -rf node_modules/ && yarn && yarn start --reset-cache"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "mobx": "^6.3.2",
     "mobx-react-lite": "^3.2.0",
     "react": "16.13.1",
