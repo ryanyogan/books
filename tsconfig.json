@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"target": "ESNEXT",
+		"module": "commonjs",
+		"lib": [
+			"ES2020"
+		],
+		"jsx": "react-native",
+		"rootDir": "./src",
+		"removeComments": true,
+		"noEmit": true,
+		"strict": true,
+		"moduleResolution": "node",
+		"baseUrl": "./src",
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"useDefineForClassFields": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true
+	},
+	"exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
+}
